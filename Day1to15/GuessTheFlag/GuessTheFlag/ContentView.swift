@@ -63,11 +63,10 @@ struct ContentView: View {
                         }label: {
                             Text("Start Game")
                         }.alert("Game Over", isPresented: $isGameStopped) {
-                            Button("Retry") {
+                            Button("Play Again") {
                                 // Logic to restart the game
                                 resetGame()
                             }
-                            Button("Exit", role: .cancel) { }
                     }message: {
                         Text("You have won the game.")
                     }
