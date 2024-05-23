@@ -12,6 +12,9 @@ struct ContentView: View {
     
     @State var score:Int = 0
     
+    //TESTING
+    //@State var isGameStarted:Bool = true
+    //PROD:
     @State var isGameStarted:Bool = false
     @State var isGameStopped:Bool = false
     
@@ -46,7 +49,7 @@ struct ContentView: View {
             
             //COLOR:
             
-            LinearGradient(colors: [.indigo, .black], startPoint: .topLeading, endPoint: .bottomTrailing)
+            LinearGradient(colors: [.indigo, .blue], startPoint: .topLeading, endPoint: .bottomTrailing)
             
             
             VStack{
@@ -62,25 +65,27 @@ struct ContentView: View {
                             startGame()
                         }label: {
                             Text("Start Game")
-                        }.alert("Game Over", isPresented: $isGameStopped) {
-                            Button("Play Again") {
+                                .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+                                .fontWeight(.semibold)
+                                .foregroundColor(.blue)
+                                .frame(width: 200)
+                                .padding()
+                                .background(.regularMaterial)
+                                .clipShape(.rect(cornerRadius: 20))
+                                .padding()
+                        }.alert("Game Over!", isPresented: $isGameStopped) {
+                            Button("Play Again?") {
                                 // Logic to restart the game
                                 resetGame()
                             }
                     }message: {
-                        Text("You have won the game.")
+                        Text("You have won the game!")
                     }
                     }
                 }else{
                     VStack{
                         
-                        Text("Your Current Score: \(score)")
-                            .font(.title2)
-                            .fontWeight(.bold)
-                            .foregroundColor(Color.white)
-                            .multilineTextAlignment(.center)
-                        
-                        Text("Choose the correct flag: \n")
+                        Text("Choose the correct flag for: \n")
                             .font(.title3)
                             .fontWeight(.bold)
                             .foregroundColor(Color.white)
@@ -92,24 +97,39 @@ struct ContentView: View {
                             .foregroundColor(.white)
                         
                         
-                        ForEach(0..<3){
-                            number in
-                            Button{
-                                //Button Was tapped
-                                updatedScore(num: number)
-                            }label: {
-                                Image("\(countries[number])")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
-                                    .overlay(Circle().stroke(Color.white, lineWidth: 4))
-                                    .shadow(radius: 10)
+                        VStack (spacing: 15){
+                            ForEach(0..<3){
+                                number in
+                                Button{
+                                    //Button Was tapped
+                                    updatedScore(num: number)
+                                }label: {
+                                        Image("\(countries[number])")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(maxWidth: 200)
+                                            .clipShape(Capsule())
+                                            .overlay(Capsule().stroke(Color.white, lineWidth: 2))
+                                            .shadow(radius: 5)
+                                }.padding(.vertical, 15)
                             }
                         }
+                        .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
+                        .background(.thinMaterial)
+                        .clipShape(.rect(cornerRadius: 20))
+                        .padding(.vertical, 20)
+                        
                         
                         Spacer()
+                        
+                        Text("Your Current Score: \(score)")
+                            .font(.title2)
+                            .fontWeight(.bold)
+                            .foregroundColor(Color.white)
+                            .multilineTextAlignment(.center)
                     }
                     .padding(.top, 10)
+                    .padding(.horizontal, 20)
                 }
             }
             .padding(.top, 70)
