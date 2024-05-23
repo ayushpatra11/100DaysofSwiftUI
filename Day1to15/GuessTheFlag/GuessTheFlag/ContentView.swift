@@ -7,6 +7,21 @@
 
 import SwiftUI
 
+struct FlagImageView: View {
+    
+    var ImageName : String
+    
+    var body: some View {
+        Image(ImageName)
+            .resizable()
+            .scaledToFit()
+            .frame(maxWidth: 200)
+            .clipShape(Capsule())
+            .overlay(Capsule().stroke(Color.white, lineWidth: 2))
+            .shadow(radius: 5)
+    }
+}
+
 struct ContentView: View {
     @State var countries = ["Germany", "Estonia", "France", "Italy", "Ireland", "Monaco", "Nigeria", "Poland", "Spain", "UK", "Ukraine", "US"].shuffled()
     
@@ -74,7 +89,7 @@ struct ContentView: View {
                                 .clipShape(.rect(cornerRadius: 20))
                                 .padding()
                         }.alert("Game Over!", isPresented: $isGameStopped) {
-                            Button("Play Again?") {
+                            Button("Okay") {
                                 // Logic to restart the game
                                 resetGame()
                             }
@@ -104,13 +119,9 @@ struct ContentView: View {
                                     //Button Was tapped
                                     updatedScore(num: number)
                                 }label: {
-                                        Image("\(countries[number])")
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(maxWidth: 200)
-                                            .clipShape(Capsule())
-                                            .overlay(Capsule().stroke(Color.white, lineWidth: 2))
-                                            .shadow(radius: 5)
+                                        //Image("\(countries[number])")
+                                    FlagImageView(ImageName: "\(countries[number])")
+                                            
                                 }.padding(.vertical, 15)
                             }
                         }
