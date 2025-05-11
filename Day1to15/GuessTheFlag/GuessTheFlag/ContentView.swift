@@ -113,6 +113,7 @@ struct ContentView: View {
                         
                         
                         VStack (spacing: 15){
+                            //This is working because we are shuffling the countries array and because we are picking only the first 3 elements from the shuffled array. Get it? 
                             ForEach(0..<3){
                                 number in
                                 Button{
